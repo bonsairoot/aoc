@@ -1,6 +1,6 @@
 # Advent of code
 ## What is aoc?
-Advent of code is a daily challenge lastin through the advent.  
+Advent of code is a daily challenge lasting through the advent.  
 See: http://adventofcode.com/ for more informations.  
 There is also a [subreddit](https://www.reddit.com/r/adventofcode/) where people are posting and discussing their solutions.
 
@@ -15,14 +15,13 @@ I will mainly be using:
 I chose Elixir because I really like the language so far and want to improve my skills. 
 Also I have a use case requiring the things that elixir excels in. 
 - **python3**    
-It's a language that is just fun to write in. I also need practice.
+It's a language that is just fun to write in. Practice is needed here as well.
 - **perl maybe?**    
 Anything related to heavy text processing is probably going to end up being written in perl
 
 ##Feedback
-If any scripts look like a huge mess it's probably because I just rushed them and didn't have time to look over them.  
-I will try to revisit them and do some cleanup at some point. Feel free to give me feedback on my solutions if you see me  
-posting in the subreddit. I appreciate every advice given to me.
+If any scripts look like a huge mess it's probably because I've rushed them and didn't have time/motivation to look over them. 
+I will revisit them and do some cleanup at some point. Feel free to give me feedback on my solutions if you see me posting   in the subreddit. I appreciate every advice given to me.
 
 
 
