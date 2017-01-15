@@ -1,6 +1,9 @@
 /deps
 /_build
 /cover
+/target
+Cargo.lock
+*.rs.bk
 erl_crash.dump
 *.ez
 *.beam
