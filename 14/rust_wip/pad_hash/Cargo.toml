@@ -1,8 +1,0 @@
-[package]
-name = "pad_hash"
-version = "0.1.0"
-authors = ["bonsairoot <g.wetten@bluewin.ch>"]
-
-[dependencies]
-rust-crypto = "0.2.36"
-regex = "0.2.1"
