@@ -1,7 +1,10 @@
-pub mod graph;
-use graph::Graph;
+extern crate petgraph;
 
-const SIZE: usize = 30;
+use petgraph::Graph;
+use petgraph::prelude::NodeIndex;
+use petgraph::algo::dijkstra;
+
+const SIZE: usize = 50;
 
 #[cfg(test)]
 mod tests {
@@ -13,7 +16,7 @@ mod tests {
 
 fn fill_grid(fav: i32) -> [[u8; SIZE]; SIZE] {
     let mut grid = [[0u8; SIZE]; SIZE];
-    let loop_size: i32 = (SIZE - 1) as i32;
+    let loop_size: i32 = SIZE as i32;
     for x_coord in 0..loop_size {
         for y_coord in 0..loop_size {
             let tile_value = x_coord * x_coord + 3 * x_coord + 2 * x_coord * y_coord + y_coord +
@@ -31,40 +34,42 @@ fn fill_grid(fav: i32) -> [[u8; SIZE]; SIZE] {
 
 fn print_grid(grid: &[[u8; SIZE]]) {
     for row in grid {
-        for column in row {
+        for column in row.iter() {
             print!("{}", column);
         }
         println!();
     }
 }
 
-fn get_min_path(goal: (u8, u8), fav: i32) -> u8 {
+fn get_min_path(goal: (usize, usize), fav: i32) -> u8 {
     let grid = fill_grid(fav);
     print_grid(&grid);
     let graph = create_graph_no_diagonal(&grid);
-    let successors: Vec<usize> = graph.successors(30).collect();
-    println!("{:?}", successors);
-    11
+    let start = NodeIndex::new(51);
+    let scores = dijkstra(&graph, start, None, |e| *e.weight());
+    let first_task = scores.get(&NodeIndex::new(goal.1 * SIZE + goal.0)).unwrap();
+    let second_task: Vec<_> =
+        scores.clone().into_iter().map(|(n, s)| (graph[n], s)).filter(|x| x.1 < 51).collect();
+    println!("First task: {}", first_task);
+    println!("Second task: {}", second_task.len());
+    *first_task
 }
 
-fn create_graph_no_diagonal(grid: &[[u8; SIZE]]) -> Graph {
-    let mut graph = Graph::new();
-
-    for node in 1..(SIZE * SIZE) {
-        graph.add_node();
-    }
-
-    for row in 0..(SIZE - 1) {
-        for column in 0..(SIZE - 1) {
+fn create_graph_no_diagonal(grid: &[[u8; SIZE]])
+                            -> Graph<(usize, usize), u8, petgraph::Undirected> {
+    let mut graph: Graph<(usize, usize), u8, petgraph::Undirected> = Graph::new_undirected();
+    for row in 0..SIZE {
+        for column in 0..SIZE {
+            graph.add_node((column, row));
             if grid[row][column] == 1 {
                 continue;
             }
             let current = row * SIZE + column;
             if row != 0 && grid[row - 1][column] == 0 {
-                graph.add_edge(current - SIZE, current);
+                graph.add_edge(NodeIndex::new(current - SIZE), NodeIndex::new(current), 1);
             }
             if column != 0 && grid[row][column - 1] == 0 {
-                graph.add_edge(current - 1, current);
+                graph.add_edge(NodeIndex::new(current - 1), NodeIndex::new(current), 1);
             }
         }
     }
@@ -72,5 +77,5 @@ fn create_graph_no_diagonal(grid: &[[u8; SIZE]]) -> Graph {
 }
 
 fn main() {
-    get_min_path((7, 4), 10);
+    get_min_path((31, 39), 1352);
 }
