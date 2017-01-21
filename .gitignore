@@ -1,7 +1,7 @@
 /deps
 /_build
 /cover
-/target
+target
 Cargo.lock
 *.rs.bk
 erl_crash.dump
