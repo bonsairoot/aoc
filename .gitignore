@@ -7,3 +7,5 @@ Cargo.lock
 erl_crash.dump
 *.ez
 *.beam
+*.py[cod]
+__pycache__/
