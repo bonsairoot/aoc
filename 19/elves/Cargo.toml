@@ -1,0 +1,6 @@
+[package]
+name = "elves"
+version = "0.1.0"
+authors = ["bonsairoot <g.wetten@bluewin.ch>"]
+
+[dependencies]
